@@ -1,9 +1,9 @@
 class Pusher < Formula
   desc "FTC Robot deployment tool - automate building and deploying Android apps to robots"
   homepage "https://github.com/andreibanu/pusher"
-  url "https://github.com/PzmuV1517/Pusher/archive/v1.1.24.tar.gz"
-  sha256 "ccca4d93e44898e1fb289e73c3e9bd7b0334f953c39c383709c13fe4689c74b2"
-  version "1.1.24"
+  url "https://github.com/PzmuV1517/Pusher/archive/v1.1.30.tar.gz"
+  sha256 "ecea3c886b3c9eb3b07c354da578ffdc05472360e9c31a368ace5e66e33e4a4c"
+  version "1.1.30"
 
   depends_on "go" => :build
 
