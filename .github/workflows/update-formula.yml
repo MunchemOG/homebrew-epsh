@@ -28,6 +28,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.EPSH_READ_TOKEN }}
         run: |
+          gh api repos/MunchemOG/epsh --jq '.full_name, .private' || echo "REPO ACCESS FAILED"
+          gh release list --repo MunchemOG/epsh || echo "RELEASE LIST FAILED"
           # Get the latest release from MunchemOG/epsh
           if [ -n "${{ github.event.inputs.tag }}" ]; then
             TAG="${{ github.event.inputs.tag }}"
