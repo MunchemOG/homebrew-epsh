@@ -29,20 +29,20 @@ jobs:
           GH_TOKEN: ${{ secrets.EPSH_READ_TOKEN }}
         run: |
           gh api repos/MunchemOG/epsh --jq '.full_name, .private' || echo "REPO ACCESS FAILED"
-          gh release list --repo MunchemOG/epsh || echo "RELEASE LIST FAILED"
+          gh release list --repo MunchemOG/ElectroPush || echo "RELEASE LIST FAILED"
           # Get the latest release from MunchemOG/epsh
           if [ -n "${{ github.event.inputs.tag }}" ]; then
             TAG="${{ github.event.inputs.tag }}"
           elif [ "${{ github.event.action }}" = "epsh-release" ]; then
             TAG="${{ github.event.client_payload.tag }}"
           else
-            TAG=$(gh release list --repo MunchemOG/epsh --limit 1 --json tagName --jq '.[0].tagName')
+            TAG=$(gh release list --repo MunchemOG/ElectroPush --limit 1 --json tagName --jq '.[0].tagName')
           fi
           
           echo "TAG=$TAG" >> $GITHUB_OUTPUT
           
           # Get release body
-          RELEASE_BODY=$(gh release view "$TAG" --repo MunchemOG/epsh --json body --jq '.body')
+          RELEASE_BODY=$(gh release view "$TAG" --repo MunchemOG/ElectroPush --json body --jq '.body')
           echo "Release body:"
           echo "$RELEASE_BODY"
           
