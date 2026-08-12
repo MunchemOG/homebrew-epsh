@@ -1,9 +1,9 @@
 class Epsh < Formula
   desc "FTC Robot deployment tool - automate building and deploying Android apps to robots"
   homepage "https://github.com/MunchemOG/epsh"
-  url "https://github.com/MunchemOG/ElectroPush/archive/v0.0.1.tar.gz"
-  sha256 "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5"
-  version "0.0.1"
+  url "https://github.com/MunchemOG/ElectroPush/releases/download/v0.0.2/epsh-0.0.2.tar.gz"
+  sha256 "dc9920a74d2d393164ef0e95ca733cb38d55c447aa49ee75fce62fe532f335da"
+  version "0.0.2"
 
   depends_on "go" => :build
 
