@@ -1,8 +1,8 @@
-name: Update Pusher Formula
+name: Update Epsh Formula
 
 on:
   repository_dispatch:
-    types: [pusher-release]
+    types: [epsh-release]
   workflow_dispatch:
     inputs:
       tag:
@@ -28,19 +28,19 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Get the latest release from PzmuV1517/Pusher
+          # Get the latest release from MunchemOG/epsh
           if [ -n "${{ github.event.inputs.tag }}" ]; then
             TAG="${{ github.event.inputs.tag }}"
-          elif [ "${{ github.event.action }}" = "pusher-release" ]; then
+          elif [ "${{ github.event.action }}" = "epsh-release" ]; then
             TAG="${{ github.event.client_payload.tag }}"
           else
-            TAG=$(gh release list --repo PzmuV1517/Pusher --limit 1 --json tagName --jq '.[0].tagName')
+            TAG=$(gh release list --repo MunchemOG/epsh --limit 1 --json tagName --jq '.[0].tagName')
           fi
           
           echo "TAG=$TAG" >> $GITHUB_OUTPUT
           
           # Get release body
-          RELEASE_BODY=$(gh release view "$TAG" --repo PzmuV1517/Pusher --json body --jq '.body')
+          RELEASE_BODY=$(gh release view "$TAG" --repo MunchemOG/epsh --json body --jq '.body')
           echo "Release body:"
           echo "$RELEASE_BODY"
           
@@ -58,25 +58,25 @@ jobs:
           echo "SHA256=$SHA256" >> $GITHUB_OUTPUT
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
-      - name: Update pusher.rb formula
+      - name: Update epsh.rb formula
         run: |
           # Update the formula file
-          sed -i "s|url \".*\"|url \"${{ steps.release.outputs.URL }}\"|g" Formula/pusher.rb
-          sed -i "s|sha256 \".*\"|sha256 \"${{ steps.release.outputs.SHA256 }}\"|g" Formula/pusher.rb
-          sed -i "s|version \".*\"|version \"${{ steps.release.outputs.VERSION }}\"|g" Formula/pusher.rb
+          sed -i "s|url \".*\"|url \"${{ steps.release.outputs.URL }}\"|g" Formula/epsh.rb
+          sed -i "s|sha256 \".*\"|sha256 \"${{ steps.release.outputs.SHA256 }}\"|g" Formula/epsh.rb
+          sed -i "s|version \".*\"|version \"${{ steps.release.outputs.VERSION }}\"|g" Formula/epsh.rb
           
-          echo "Updated Formula/pusher.rb:"
-          cat Formula/pusher.rb
+          echo "Updated Formula/epsh.rb:"
+          cat Formula/epsh.rb
 
       - name: Commit and push changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add Formula/pusher.rb
+          git add Formula/epsh.rb
           
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Update pusher formula to version ${{ steps.release.outputs.VERSION }}"
+            git commit -m "Update epsh formula to version ${{ steps.release.outputs.VERSION }}"
             git push
           fi
